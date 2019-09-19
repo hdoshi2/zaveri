@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Customer} = require('../server/db/models')
+const {User, Customer, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -9,16 +9,55 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'})
   ])
 
   const customers = await Promise.all([
-    Customer.create({firstName: 'Tom', lastName:'Brady', email: 'tommy@email.com', phone: '2123551220'}),
-    Customer.create({firstName: 'Bill', lastName:'Smith', email: 'billSmith@email.com', phone: '6304005766'})
+    Customer.create({
+      firstName: 'Tom',
+      lastName: 'Brady',
+      email: 'tommy@email.com',
+      phone: '2123551220'
+    }),
+    Customer.create({
+      firstName: 'Bill',
+      lastName: 'Smith',
+      email: 'billSmith@email.com',
+      phone: '6304005766'
+    })
+  ])
+
+  const orders = await Promise.all([
+    Order.create({
+      orderName: 'Fix ring',
+      price: 59.99,
+      notes:
+        'You might think that all diamonds are the same, but if you look at a stone really hard, you will start to notice some characteristics that make it different from others.',
+      type: 'Repair',
+      status: 'Pending',
+      customerId: 1
+    }),
+    Order.create({
+      orderName: 'Buy new ring',
+      price: 300.5,
+      notes: 'Purchased engagement ring',
+      type: 'New Item',
+      status: 'Closed',
+      customerId: 2
+    }),
+    Order.create({
+      orderName: 'Buy new necklace',
+      price: 2320.78,
+      notes: 'Purchased diamond necklace',
+      type: 'New Item',
+      status: 'Closed',
+      customerId: 1
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${customers.length} customers`)
+  console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 }
 

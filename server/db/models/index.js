@@ -1,5 +1,9 @@
 const User = require('./user')
 const Customer = require('./customer')
+const Order = require('./order')
+
+Order.belongsTo(Customer)
+Customer.hasMany(Order)
 
 
 /**
@@ -17,5 +21,6 @@ const Customer = require('./customer')
  */
 module.exports = {
   User,
-  Customer
+  Customer,
+  Order
 }
