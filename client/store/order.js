@@ -8,7 +8,7 @@ const GET_ORDER = 'GET_ORDER'
 /**
  * INITIAL STATE
  */
-const defaultOrder = {}
+// const defaultOrder = {}
 
 /**
  * ACTION CREATORS
@@ -31,6 +31,7 @@ export function fetchOrder() {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/order')
+      console.log('data', data)
       dispatch(getOrder(data))
     } catch (err) {
       console.log('error in fetchOrder thunk')
@@ -41,7 +42,7 @@ export function fetchOrder() {
 /**
  * REDUCER
  */
-export default function(state = defaultOrder, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case GET_ORDER:
       return action.order
