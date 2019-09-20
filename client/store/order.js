@@ -8,7 +8,7 @@ const GET_ORDER = 'GET_ORDER'
 /**
  * INITIAL STATE
  */
-// const defaultOrder = {}
+const defaultOrder = {}
 
 /**
  * ACTION CREATORS
@@ -18,20 +18,11 @@ const getOrder = order => ({type: GET_ORDER, order})
 /**
  * THUNK CREATORS
  */
-// export const fetchOrder = () => async dispatch => {
-//   try {
-//     const res = await axios.get('/api/order')
-//     dispatch(getOrder(res.data || defaultOrder))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
 
 export function fetchOrder() {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/order')
-      console.log('data', data)
       dispatch(getOrder(data))
     } catch (err) {
       console.log('error in fetchOrder thunk')
@@ -42,7 +33,16 @@ export function fetchOrder() {
 /**
  * REDUCER
  */
-export default function(state = {}, action) {
+// export default function(state = defaultOrder, action) {
+//   switch (action.type) {
+//     case GET_ORDER:
+//       return action.order
+//     default:
+//       return state
+//   }
+// }
+
+export const orderReducer = (state = defaultOrder, action) => {
   switch (action.type) {
     case GET_ORDER:
       return action.order
