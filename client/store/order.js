@@ -8,7 +8,7 @@ const GET_ORDER = 'GET_ORDER'
 /**
  * INITIAL STATE
  */
-const defaultOrder = {}
+const defaultOrder = {isloading: true, orderList: []}
 
 /**
  * ACTION CREATORS
@@ -45,7 +45,7 @@ export function fetchOrder() {
 export const orderReducer = (state = defaultOrder, action) => {
   switch (action.type) {
     case GET_ORDER:
-      return action.order
+      return {isloading: false, orderList: action.order}
     default:
       return state
   }

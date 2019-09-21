@@ -1,35 +1,24 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrder} from '../store/order'
 
-class Orders extends Component {
-  constructor(props) {
-    console.log('props', props)
-    super(props)
-    this.state = {}
-  }
-
-  componentDidMount() {
-    this.props.fetchOrderList()
-  }
-
-  render() {
-    console.log(this.state)
-    return <div>TEST</div>
-  }
+const Orders = props => {
+  const {orderReducer} = props
+  return (
+    <div>
+      {orderReducer.map(order => (
+        <div key={order.id}>
+          {order.orderName}
+          {order.price}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 const mapState = state => {
-  console.log('statezz', state)
   return {
-    email: state.user.email
+    orderReducer: state.orderReducer.orderList
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchOrderList: () => dispatch(fetchOrder())
-  }
-}
-
-export default connect(mapState, mapDispatch)(Orders)
+export default connect(mapState)(Orders)
