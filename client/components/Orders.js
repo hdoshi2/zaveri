@@ -55,10 +55,11 @@ function Orders(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Order Type</TableCell>
+            <TableCell align="center">Order Type</TableCell>
             <TableCell align="center">Type</TableCell>
             <TableCell align="center">Notes</TableCell>
             <TableCell align="center">Price</TableCell>
+            <TableCell align="center">Customer Name</TableCell>
             <TableCell align="center">Status</TableCell>
           </TableRow>
         </TableHead>
@@ -71,6 +72,9 @@ function Orders(props) {
               <TableCell align="left">{order.type}</TableCell>
               <TableCell align="left">{order.notes}</TableCell>
               <TableCell align="right">{order.price}</TableCell>
+              <TableCell align="right">
+                {order.customer.firstName} {order.customer.lastName}
+              </TableCell>
               <TableCell align="right">{order.status}</TableCell>
             </TableRow>
           ))}
