@@ -35,11 +35,11 @@ import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '50%',
+    width: '90%',
     marginTop: theme.spacing(3),
     overflowX: 'auto',
     align: 'center',
-    margin: 'auto',
+    margin: 'auto'
   },
   table: {
     minWidth: 'auto'
@@ -49,14 +49,17 @@ const useStyles = makeStyles(theme => ({
 function Orders(props) {
   const classes = useStyles()
   const {orderReducer} = props
-
+  console.log('props', props)
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>Order Type</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell align="center">Type</TableCell>
+            <TableCell align="center">Notes</TableCell>
+            <TableCell align="center">Price</TableCell>
+            <TableCell align="center">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,7 +68,10 @@ function Orders(props) {
               <TableCell component="th" scope="row">
                 {order.orderName}
               </TableCell>
+              <TableCell align="left">{order.type}</TableCell>
+              <TableCell align="left">{order.notes}</TableCell>
               <TableCell align="right">{order.price}</TableCell>
+              <TableCell align="right">{order.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>

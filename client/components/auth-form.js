@@ -61,7 +61,6 @@ const useStyles = makeStyles(theme => ({
 const AuthForm = props => {
   const classes = useStyles()
   const {name, displayName, handleSubmit, error} = props
-
   // return (
   //   <div>
   //     <form onSubmit={handleSubmit} name={name}>
