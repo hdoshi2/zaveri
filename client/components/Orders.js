@@ -49,7 +49,6 @@ const useStyles = makeStyles(theme => ({
 function Orders(props) {
   const classes = useStyles()
   const {orderReducer} = props
-  console.log('props', props)
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -71,7 +70,7 @@ function Orders(props) {
               </TableCell>
               <TableCell align="left">{order.type}</TableCell>
               <TableCell align="left">{order.notes}</TableCell>
-              <TableCell align="right">{order.price}</TableCell>
+              <TableCell align="right">${order.price}</TableCell>
               <TableCell align="right">
                 {order.customer.firstName} {order.customer.lastName}
               </TableCell>
