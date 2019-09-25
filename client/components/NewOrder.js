@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
+import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import AddIcon from '@material-ui/icons/Add'
 import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
@@ -46,23 +47,24 @@ const defaultState = {
   orderName: '',
   price: '',
   notes: '',
-  type: 'New item',
-  status: 'Pending'
+  type: '',
+  status: '',
+  customerId: 1
 }
 class NewOrder extends Component {
-  state = defaultState;
+  state = defaultState
 
   handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state)
-    this.props.addOrderToThunk(this.state);
-    this.setState(defaultState);
+    this.props.addOrderToThunk(this.state)
+    this.setState(defaultState)
   }
 
   render() {
@@ -85,7 +87,7 @@ class NewOrder extends Component {
           <Grid item xs={12} md={6}>
             <TextField
               required
-              id="orderName"
+              name="orderName"
               label="Order Name"
               onChange={this.handleChange}
               fullWidth
@@ -94,47 +96,48 @@ class NewOrder extends Component {
           <Grid item xs={12} md={6}>
             <TextField
               required
-              id="price"
+              name="price"
               label="Price"
               onChange={this.handleChange}
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <TextField
               required
-              id="notes"
+              name="notes"
               label="Notes"
               onChange={this.handleChange}
               helperText="Last three digits on signature strip"
               fullWidth
+              multiline
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
               select
               value={this.state.type}
-              id="type"
-              label="Type"
+              name="type"
+              label="type"
               onChange={this.handleChange}
               fullWidth
             >
               <MenuItem value="New Item">New Item</MenuItem>
               <MenuItem value="Repair">Repair</MenuItem>
             </TextField>
-            {/* <InputLabel htmlFor="type">Type</InputLabel>
-            <Select
-              value={this.state.type}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              select
+              value={this.state.status}
+              name="status"
+              label="status"
               onChange={this.handleChange}
-              inputProps={{
-                name: 'type',
-                id: 'type'
-              }}
+              fullWidth
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select> */}
+              <MenuItem value="Pending">Pending</MenuItem>
+              <MenuItem value="Closed">Closed</MenuItem>
+            </TextField>
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -162,9 +165,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addOrderToThunk: function(newOrder) {
       //dispatching to store in db
-      dispatch(addOrderThunk(newOrder));
+      dispatch(addOrderThunk(newOrder))
     }
-  };
+  }
 }
 
 NewOrder.propTypes = {

@@ -4,7 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_ORDER = 'GET_ORDER'
-const ADD_ORDER = 'ADD_STUDENT'
+const ADD_ORDER = 'ADD_ORDER'
 
 /**
  * INITIAL STATE
@@ -40,6 +40,7 @@ export function addOrderThunk(newOrder) {
       //response.data =[]
       //updates db with post request
       const {data} = await axios.post('/api/order', newOrder)
+      console.log('data', data)
       //dispatch the action to update reducer
       dispatch(addOrder(data))
     } catch (err) {
@@ -66,8 +67,7 @@ export const orderReducer = (state = defaultOrder, action) => {
     case GET_ORDER:
       return {isloading: false, orderList: action.order}
     case ADD_ORDER:
-      const newOrder = {...action.newOrder}
-      return [...state, newOrder]
+      return {isloading: false, orderList: [...state.orderList, action.newOrder]}
     default:
       return state
   }

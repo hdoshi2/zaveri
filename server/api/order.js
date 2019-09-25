@@ -12,3 +12,12 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    let newOrder = await Order.create(req.body)
+    res.status(201).send(newOrder)
+  } catch (err) {
+    next(err)
+  }
+})
