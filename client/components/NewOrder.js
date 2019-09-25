@@ -4,20 +4,13 @@ import {connect} from 'react-redux'
 import {addOrderThunk} from '../store/order'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import AddIcon from '@material-ui/icons/Add'
 import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
-import InputLabel from '@material-ui/core/InputLabel'
 
 const styles = theme => ({
   '@global': {
@@ -49,7 +42,7 @@ const defaultState = {
   notes: '',
   type: '',
   status: '',
-  customerId: 1
+  customerId: 0
 }
 class NewOrder extends Component {
   state = defaultState
@@ -68,8 +61,8 @@ class NewOrder extends Component {
   }
 
   render() {
-    const {classes} = this.props
-
+    const {classes, customerReducer} = this.props
+    console.log('props', customerReducer)
     return (
       <Container className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -84,6 +77,23 @@ class NewOrder extends Component {
           className={classes.form}
           onSubmit={this.handleSubmit}
         >
+          <Grid item xs={12}>
+            <TextField
+              select
+              value={this.state.customerId}
+              name="customerId"
+              label="Customer"
+              onChange={this.handleChange}
+              fullWidth
+            >
+              {/* <MenuItem value="2">Pending</MenuItem> */}
+              {customerReducer.map(elem => (
+                <MenuItem value={elem.id} key={elem.id}>
+                  {elem.lastName}, {elem.firstName}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
           <Grid item xs={12} md={6}>
             <TextField
               required
@@ -158,7 +168,7 @@ class NewOrder extends Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {customerReducer: state.customerReducer.customerList}
 }
 
 const mapDispatchToProps = dispatch => {
