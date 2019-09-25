@@ -17,7 +17,7 @@ const getCustomer = customer => ({type: GET_CUSTOMER, customer})
 export function fetchCustomer() {
   return async dispatch => {
     try {
-      const data = await axios.get('/api/customer')
+      const {data} = await axios.get('/api/customer')
       dispatch(getCustomer(data))
     } catch (err) {
       console.log('error in fetchCustomer thunk')
@@ -37,7 +37,7 @@ const defaultState = {isloading: true, customerList: []}
 export const customerReducer = (state = defaultState, action) => {
   switch (action.type) {
     case GET_CUSTOMER:
-      return {isLoading: false, customerList: [action.customer]}
+      return {isLoading: false, customerList: action.customer}
     default:
       return state
   }

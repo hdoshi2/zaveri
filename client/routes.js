@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Orders, NewOrder} from './components'
 import {me} from './store'
 import {fetchOrder} from './store/order'
+import {fetchCustomer} from './store/customer'
 
 /**
  * COMPONENT
@@ -58,6 +59,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchOrder())
+      dispatch(fetchCustomer())
     }
   }
 }
