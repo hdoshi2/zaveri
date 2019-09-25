@@ -5,12 +5,10 @@ import axios from 'axios'
  */
 const GET_CUSTOMER = 'GET_CUSTOMER'
 
-
 /**
  * ACTION CREATORS
  */
 const getCustomer = customer => ({type: GET_CUSTOMER, customer})
-
 
 /**
  * THUNK CREATORS
@@ -18,10 +16,10 @@ const getCustomer = customer => ({type: GET_CUSTOMER, customer})
 
 export function fetchCustomer() {
   return async dispatch => {
-    try{
+    try {
       const data = await axios.get('/api/customer')
       dispatch(getCustomer(data))
-    } catch(err) {
+    } catch (err) {
       console.log('error in fetchCustomer thunk')
     }
   }
@@ -36,6 +34,11 @@ const defaultState = {isloading: true, customerList: []}
  * REDUCER
  */
 
- export const customerReducer = (state = defaultState, action){
-   
- }
+export const customerReducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case GET_CUSTOMER:
+      return {isLoading: false, customerList: [action.customer]}
+    default:
+      return state
+  }
+}

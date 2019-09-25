@@ -108,7 +108,7 @@ class NewOrder extends Component {
               name="notes"
               label="Notes"
               onChange={this.handleChange}
-              helperText="Last three digits on signature strip"
+              helperText="Additional order details."
               fullWidth
               multiline
             />
