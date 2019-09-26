@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {addOrderThunk} from '../store/order'
+import {addCustomerThunk} from '../store/customer'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-import AddIcon from '@material-ui/icons/Add'
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
 import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
@@ -39,14 +39,12 @@ const styles = theme => ({
   }
 })
 const defaultState = {
-  orderName: '',
-  price: '',
-  notes: '',
-  type: '',
-  status: '',
-  customerId: 0
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: ''
 }
-class NewOrder extends Component {
+class NewCustomer extends Component {
   state = defaultState
 
   handleChange = e => {
@@ -58,7 +56,7 @@ class NewOrder extends Component {
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state)
-    this.props.addOrderToThunk(this.state)
+    this.props.addCustomerToThunk(this.state)
     this.setState(defaultState)
   }
 
@@ -69,10 +67,10 @@ class NewOrder extends Component {
       <Container>
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <AddIcon />
+            <SupervisedUserCircleIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            ADD ORDER
+            ADD CUSTOMER
           </Typography>
           <Grid
             container
@@ -80,28 +78,11 @@ class NewOrder extends Component {
             className={classes.form}
             onSubmit={this.handleSubmit}
           >
-            <Grid item xs={12}>
-              <TextField
-                select
-                value={this.state.customerId}
-                name="customerId"
-                label="Customer"
-                onChange={this.handleChange}
-                fullWidth
-              >
-                {/* <MenuItem value="2">Pending</MenuItem> */}
-                {customerReducer.map(elem => (
-                  <MenuItem value={elem.id} key={elem.id}>
-                    {elem.lastName}, {elem.firstName}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
             <Grid item xs={12} md={6}>
               <TextField
                 required
-                name="orderName"
-                label="Order Name"
+                name="firstName"
+                label="First Name"
                 onChange={this.handleChange}
                 fullWidth
               />
@@ -109,8 +90,8 @@ class NewOrder extends Component {
             <Grid item xs={12} md={6}>
               <TextField
                 required
-                name="price"
-                label="Price"
+                name="lastName"
+                label="Last Name"
                 onChange={this.handleChange}
                 fullWidth
               />
@@ -121,36 +102,28 @@ class NewOrder extends Component {
                 name="notes"
                 label="Notes"
                 onChange={this.handleChange}
-                helperText="Additional order details."
+                helperText="Customer Notes."
                 fullWidth
                 multiline
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                select
-                value={this.state.type}
-                name="type"
-                label="type"
+                required
+                name="email"
+                label="Email"
                 onChange={this.handleChange}
                 fullWidth
-              >
-                <MenuItem value="New Item">New Item</MenuItem>
-                <MenuItem value="Repair">Repair</MenuItem>
-              </TextField>
+              />
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                select
-                value={this.state.status}
-                name="status"
-                label="status"
+                required
+                name="phone"
+                label="Phone Number"
                 onChange={this.handleChange}
                 fullWidth
-              >
-                <MenuItem value="Pending">Pending</MenuItem>
-                <MenuItem value="Closed">Closed</MenuItem>
-              </TextField>
+              />
             </Grid>
             <Grid item xs={12}>
               <Button
@@ -177,17 +150,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addOrderToThunk: function(newOrder) {
+    addCustomerToThunk: function(newCustomer) {
       //dispatching to store in db
-      dispatch(addOrderThunk(newOrder))
+      dispatch(addCustomerThunk(newCustomer))
     }
   }
 }
 
-NewOrder.propTypes = {
+NewCustomer.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(NewOrder)
+  withStyles(styles)(NewCustomer)
 )
