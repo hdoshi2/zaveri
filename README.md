@@ -1,6 +1,6 @@
-# Zaver - Jewelery Store Database Management
+# Zaveri - Jewelery Store Database Management
 
-A fullstack application used for jewelery store customer and order management. Implemented Twilio API to maintain customer communication via text messages. 
+A fullstack application used for jewelery store customer and order management. Implemented Twilio API to maintain customer communication via text messages.
 
 ## Technologies Used
 
